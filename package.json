@@ -1,0 +1,20 @@
+{
+  "name": "px2rem-loader",
+  "version": "1.0.0",
+  "description": "webpack loader use to tranfer pixels unit to rem unit",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "webpack",
+    "loader",
+    "px2rem"
+  ],
+  "author": "rwson",
+  "license": "ISC",
+  "devDependencies": {
+    "css": "^2.2.1",
+    "loader-utils": "^0.2.16"
+  }
+}
