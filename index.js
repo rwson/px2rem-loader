@@ -1,9 +1,7 @@
 "use strict";
 
-var path = require("path");
 var loaderUtils = require("loader-utils");
 var css = require("css");
-var color = require("color-console");
 
 var privateMath = {
     add: function(num1, num2) {
@@ -99,8 +97,8 @@ module.exports = function(content, map) {
             if (ignore.indexOf(style.property) < 0 && (parseFloat(value) > minSize) && pxUnitReg.test(value)) {
                 style.value = privateMath.div(parseFloat(value), privateMath.mul(base, 2)) + "rem";
             }
-        }.bind(this));
-    }.bind(this));
+        });
+    });
 
     content = css.stringify(contentAST);
 
