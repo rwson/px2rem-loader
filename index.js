@@ -84,18 +84,20 @@ module.exports = function(content, map) {
     var base = query.base || 37.5;
     var ignore = query.ignore.length ? query.ignore.split("|") : [];
     var scale = query.scale || 1;
-    var pxUnitReg = /[0-9]+([.]{1}[0-9]+){0,1}px/gi;
-    var pxReg = /px/gi;
-    var value;
+    var pxUnitReg = /\d+[\.{1}\d+]?px/gi;
+    var tmp;
 
     //  遍历样式树
     contentAST.stylesheet.rules.forEach(function(rule) {
         //  遍历样式表
         rule.declarations.forEach(function(style) {
-            value = style.value;
-            //  判断如果是px为单位,且不在忽略数组里面和大于最小单位
-            if (ignore.indexOf(style.property) < 0 && (parseFloat(value) > minSize) && pxUnitReg.test(value)) {
-                style.value = privateMath.div(parseFloat(value), privateMath.mul(base, 2)) + "rem";
+            if (ignore.indexOf(style.property) < 0) {
+                style.value = style.value.replace(pxUnitReg, function(match) {
+                    tmp = parseFloat(match);
+                    if(tmp > minSize) {
+                        return privateMath.div(tmp, privateMath.mul(base, scale)) + "rem";
+                    }
+                });
             }
         });
     });
